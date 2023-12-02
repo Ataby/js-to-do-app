@@ -83,8 +83,10 @@ todoUl.addEventListener("click",(e)=>{
       //CLICK, HANGI BUTONDAN GELDI?
       if(e.target.classList.contains("fa-trash-can")){
             e.target.parentElement.remove();
+            //TRASH ICERIYORSA ELEMNTI KALDIR
       }
       else if(e.target.classList.contains("fa-check")){
             e.target.parentElement.classList.toggle("done");
+            //TOGGLE FONK. ELEMNT VARSA SILER YOKSA EKLER.
       }
 })
