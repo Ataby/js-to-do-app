@@ -2,6 +2,18 @@ const addBtn = document.getElementById("todo-button");
 const todoInput = document.getElementById("todo-input");
 const todoUl = document.getElementById("todo-ul");
 
+
+todoInput.addEventListener("keydown",(e)=> {
+      if(e.code==='Enter'){
+            addBtn.click();
+      } //ENTER'LADIGINDA LISTEYE EKLE.
+})
+
+window.onload = function(){
+      todoInput.focus(); 
+      //SAYFA ACILINCA INPUT.BOX'A ODAKLAN.
+}
+
 addBtn.addEventListener("click", ()=> {
       if(todoInput.value.trim()===''){ //BOSLUKLARI TRIMLEYIP INPUTU KONTROL ET.
             alert("Please enter to do");
