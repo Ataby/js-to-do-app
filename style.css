@@ -96,7 +96,7 @@ ul li:nth-child(even) {
 }
 
 ul li:hover {
-  transform: translate(3px, 2px);
+  transform: translate(13px );
 }
 
 li i {
@@ -115,11 +115,11 @@ li p {
   padding: 0.4rem;
 }
 
-li.checked .fa-check {
+/* li.done .fa-check {
   color: #00e676;
-}
+} */
 
-li.checked p {
+li.done p {
   color: rgb(41, 41, 41);
   text-decoration: line-through;
   font-weight: normal;
