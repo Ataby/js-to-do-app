@@ -2,12 +2,11 @@ const addBtn = document.getElementById("todo-button");
 const todoInput = document.getElementById("todo-input");
 const todoUl = document.getElementById("todo-ul");
 
+let toDos= JSON.parse(localStorage.getItem("TODOS")) || [];
+//ARRAY'DE TODOS ELEMENTI YOKSA BOŞ BIR ARRAY ATAMASI YAP.
+console.log(toDos);
 
 
-window.onload = function(){
-      todoInput.focus(); 
-      //SAYFA ACILINCA INPUT.BOX'A ODAKLAN.
-};
 
 
 addBtn.addEventListener("click", ()=> {
@@ -25,6 +24,10 @@ addBtn.addEventListener("click", ()=> {
             createListElement(newTodo);
             //YENI BIR 'LI' ELEMNTI OLUSTURUP BUNU DOM'A BAS.
             todoInput.value="";
+            
+            toDos.push(newTodo);
+            localStorage.setItem("TODOS", JSON.stringify(toDos));
+            //TUM OLUSTURULANLARI ARRAY'E AKTARIP SONRA LOCAL'E AKTARMAK DAHA KOLAY.
       }
    
 });
@@ -72,6 +75,18 @@ todoInput.addEventListener("keydown",(e)=> {
       } //ENTER'LADIGINDA LISTEYE EKLE.
 });
 
+const renderSavedTodos = ()=>{ toDos.forEach((todo)=>{
+      createListElement(todo);
+});
+};
+
+
+window.onload = function(){
+      renderSavedTodos();
+      todoInput.focus(); 
+      //SAYFA ACILINCA INPUT.BOX'A ODAKLAN.
+
+};
 
 // document.querySelector("body").addEventListener("click",(e)=>{
 //       console.log(e.target);
@@ -80,13 +95,27 @@ todoInput.addEventListener("keydown",(e)=> {
 todoUl.addEventListener("click",(e)=>{
       console.log(e.target);
 
-      //CLICK, HANGI BUTONDAN GELDI?
-      if(e.target.classList.contains("fa-trash-can")){
+      // const id = e.target.parentElement.getAttribute("id");
+      if(e.target.classList.contains("fa-trash-can")){//CLICK, HANGI BUTONDAN GELDI?
             e.target.parentElement.remove();
             //TRASH ICERIYORSA ELEMNTI KALDIR
+
+            toDos= toDos.filter((item)=>item.id!= e.target.parentElement.id) // DELETE TIKLANDIGINDA LİSTEDE GERİYE KALANLARI SAKLA
+            console.log(toDos);
+            
+            localStorage.setItem("TODOS", JSON.stringify(toDos));
+            //LOCAL'DE TODOS'UN ICINE STRING OLARAK BU ELEMANI YAZDIR.
+            //TUM OLUSTURULANLARI ARRAY'E AKTARIP SONRA LOCAL'E AKTARMAK DAHA KOLAY.
       }
       else if(e.target.classList.contains("fa-check")){
             e.target.parentElement.classList.toggle("done");
             //TOGGLE FONK. ELEMNT VARSA SILER YOKSA EKLER.
+
+            toDos= toDos.filter((item)=>item.id!= e.target.parentElement.id) //CHECK TIKLANDIGINDA LISTEDE GERIYE KALANLARI SAKLA.
+            console.log(toDos);
+            
+            localStorage.setItem("TODOS", JSON.stringify(toDos));
+            //YENI LISTEYI LOKAL'E SAKLA
+
       }
 })
